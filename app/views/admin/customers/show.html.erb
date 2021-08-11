@@ -1,0 +1,36 @@
+<div class="container">
+  <h2><%= @public.last_name %><%= @public.first_name %>さんの会員詳細</h2>
+    <div class="row">
+      <div class="col-md-3">
+        <h3>会員ID</h3>
+        <h3>氏名</h3>
+        <h3>フリガナ</h3>
+        <h3>郵便番号</h3>
+        <h3>住所</h3>
+        <h3>電話番号</h3>
+        <h3>メールアドレス</h3>
+        <h3>会員ID</h3>
+        <h3></h3>
+      </div>
+      <div class="col-md-9">
+        <h3><%= @public.id %></h3>
+        <h3><%=@public.last_name %><%= @public.first_name %></h3>
+        <h3><%= @public.last_name_kana %><%= @public.first_name_kana %></h3>
+        <h3><%= @public.postal_code %></h3>
+        <h3><%= @public.address %></h3>
+        <h3><%= @public.telephone_number %></h3>
+        <h3><%= @public.email %></h3>
+        <h3>
+          <% if @public.is_valid %>
+          <td class="text-success">有効</td>
+          <% else %>
+          <td class="text-secondary">退会</td>
+          <% end %>
+        </h3>
+        <h3>
+          <%= link_to "編集する",edit_admin_customer_path, class: "button btn btn-success center-block" %>
+          <%= link_to "注文履歴一覧を見る",admin_admin_top_path, class: "button btn btn-primary center-block" %>
+        </h3>
+      </div>
+    </div>
+</div>

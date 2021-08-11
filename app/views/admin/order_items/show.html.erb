@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>注文詳細画面</h1>
+  <div class="row">
+    <div class="col-lg-2">
+      <h5>購入者</h5>
+      <h5>注文日</h5>
+      <h5>配送先</h5>
+      <h5>　</h5>
+      <h5>支払方法</h5>
+      <h5>注文ステータス</h5>
+    </div>
+    <div class="col-lg-10">
+      <h5><%= @order.public.last_name %> <%= @order.public.first_name %></h5>
+      <h5><%= @order.created_at.strftime("%Y/%m/%d") %></h5>
+      <h5><%= @order.address %></h5>
+      <h5><%= @order.name %></h5>
+      <h5><%= @order.payment_method %></h5>
+      <h5>　</h5>
+    </div>
+  </div>
+  <dvi class="row">
+    <div class="col-lg-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込）</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th>製作ステータス</th>
+          </tr>
+        </thead>
+        <tobody>
+          <% @order.order_details.each do |order_detail| %>
+          <tr>
+            <td><%= order_detail.item_image.name %></td>
+            <td><%= order_detail.price %></td>
+            <td><%= order_detail.amount %></td>
+            <td><%= order_detail.item_image.price * order_detail.amount %></td>
+            <%= form_with model: order_detail,url: admin_making_status_path(order_detail.id), local: true do |f| %>
+              <td>
+                <%= f.select :making_status, ["着手不可","製作中","製作終了"] %>
+                <%= f.submit "更新", class: "btn btn-success" %>
+              </td>
+            <% end %>
+          <% end %>
+          </tr>
+        </tobody>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <table>
+        <tr>
+          <th>商品合計</th>
+          <td><%= @total %></td>
+        </tr>
+        <tr>
+          <th>送料</th>
+          <td><%= @order.shipping_cost %></td>
+        </tr>
+        <tr>
+          <th>請求金額合計</th>
+          <td><%= @total + @order.shipping_cost %></td>
+        </tr>
+      </table>
+    </div>
+  </dvi>
+</div>

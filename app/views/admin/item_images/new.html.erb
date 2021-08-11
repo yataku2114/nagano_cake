@@ -1,0 +1,26 @@
+
+<div class="container">
+  <h1>商品新規登録</h1>
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <%= form_with model: @item_image, url:admin_item_images_path, local:true do |f| %>
+
+        <h3>画像 　　　　　　<%= f.attachment_field :image %></h3>
+        <h3>商品名 　　　　　<%= f.text_field :name %></h3>
+        <h3>商品説明 　　　　<%= f.text_area :introduction %></h3>
+        <h3>ジャンル 　　　　<%= f.collection_select :genre_id, Genre.all, :id, :name %></h3>
+        <h3>税込価格 　　　　<%= f.number_field :price %></h3>
+        <h3>
+          販売ステータス
+          　<%= f.radio_button :is_active, "販売中" %>
+          　<%= f.label :is_active, "販売中", value: true %>
+          　<%= f.radio_button :is_active, "販売中" %>
+          　<%= f.label :is_active, "販売停止中", value: false %>
+        </h3>
+        <div class="row justify-content-center">
+          <%= f.submit "新規登録", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

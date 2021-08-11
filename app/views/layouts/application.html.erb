@@ -9,7 +9,37 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+
   <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <nav>
+          <ul class="left nav navbar-nav navbar-left">
+            <%= link_to "LOGO", root_path %>
+          </ul>
+        </nav>
+        <div class="row">
+          <div class=col-md>
+            <% if public_signed_in? %>
+              <button type="button" class="btn btn-light"><%= link_to "商品一覧", public_items_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "マイページ", public_customer_path(current_public.id) %></button>
+              <button type="button" class="btn btn-light"><%= link_to "カート", public_cart_items_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "ログアウト", destroy_public_session_path, method: :delete %></button>
+            <% elsif admin_signed_in? %>
+              <button type="button" class="btn btn-light"><%= link_to "商品一覧", admin_item_images_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "会員一覧", admin_customers_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "注文履歴一覧", admin_admin_top_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "ジャンル一覧", admin_genres_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></button>
+            <% else %>
+              <button type="button" class="btn btn-light"><%= link_to "About", public_about_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "商品一覧", public_items_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "新規登録", new_public_registration_path %></button>
+              <button type="button" class="btn btn-light"><%= link_to "ログイン", new_public_session_path %></button>
+            <% end %>
+          </div>
+      </div>
+    </header>
     <%= yield %>
   </body>
 </html>

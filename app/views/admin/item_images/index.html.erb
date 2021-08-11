@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>商品一覧</h1>
+    <div class="text-right">
+      <%= link_to "+", new_admin_item_image_path, class: "btn" %>
+    </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>商品ID</th>
+            <th>商品名</th>
+            <th>税込価格</th>
+            <th>ジャンル</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tobody>
+          <% @item_images.each do |item_image| %>
+            <tr>
+              <td><%= item_image.id %></td>
+              <td><%= link_to item_image.name,admin_item_image_path(item_image.id) %></td>
+              <td><%= item_image.price %></td>
+              <td><%= item_image.genre.name %></td>
+              <% if item_image.is_active %>
+              <td class="text-success">販売中</td>
+              <% else %>
+              <td class="text-secondary">販売中止中</td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tobody>
+      </table>
+</div>
